@@ -29,4 +29,20 @@ public class VideoService {
     public void save(View view) {
         videoRepository.save(view);
     }
+
+    public List<Video> findByTitle(String title) throws VideoNotFoundException {
+        List<Video> foundVideos = videoRepository.find(title);
+        if (foundVideos.isEmpty()) {
+            throw new VideoNotFoundException("No videos found with title: " + title);
+        }
+        return foundVideos;
+    }
+
+    public List<Video> findByDuration(Double fromDuration, Double toDuration) throws VideoNotFoundException {
+        List<Video> foundVideos = videoRepository.find(fromDuration, toDuration);
+        if (foundVideos.isEmpty()) {
+            throw new VideoNotFoundException("No videos found in the duration range: " + fromDuration + " to " + toDuration);
+        }
+        return foundVideos;
+    }
 }
