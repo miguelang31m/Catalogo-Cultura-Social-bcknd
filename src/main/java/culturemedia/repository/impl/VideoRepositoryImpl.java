@@ -27,16 +27,13 @@ public class VideoRepositoryImpl implements VideoRepository {
 
     @Override
     public List<Video> find(String title) {
-        List<Video> filteredVideos = null;
+        List<Video> filteredVideos = new ArrayList<>(); // Inicializa como una nueva lista
         for (Video video : videos) {
-            if (title.equals(video.title())) {
-                if (filteredVideos == null) {
-                    filteredVideos = new ArrayList<>();
-                }
+            if (video.title().contains(title)) { // Cambia a .contains para que busque por parte del título
                 filteredVideos.add(video);
             }
         }
-        return filteredVideos;
+        return filteredVideos; // Siempre devuelve la lista, vacía o no
     }
 
     @Override
