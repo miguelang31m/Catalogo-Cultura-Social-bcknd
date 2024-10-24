@@ -4,14 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import culturemedia.model.Video;
+import culturemedia.model.View;
 import culturemedia.repository.VideoRepository;
 
 public class VideoRepositoryImpl implements VideoRepository {
 
     private final List<Video> videos;
+    private final List<View> views; // Agregar lista para las vistas
 
     public VideoRepositoryImpl() {
         videos = new ArrayList<>();
+        views = new ArrayList<>(); // lista de vistas
     }
 
     @Override
@@ -26,14 +29,20 @@ public class VideoRepositoryImpl implements VideoRepository {
     }
 
     @Override
+    public View save(View view) {
+        this.views.add(view);
+        return view;
+    }
+
+    @Override
     public List<Video> find(String title) {
-        List<Video> filteredVideos = new ArrayList<>(); // Inicializa como una nueva lista
+        List<Video> filteredVideos = new ArrayList<>();
         for (Video video : videos) {
-            if (video.title().contains(title)) { // Cambia a .contains para que busque por parte del título
+            if (video.title().contains(title)) {
                 filteredVideos.add(video);
             }
         }
-        return filteredVideos; // Siempre devuelve la lista, vacía o no
+        return filteredVideos;
     }
 
     @Override
